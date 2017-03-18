@@ -22,9 +22,7 @@ before_install:
 script:
   - ./gradlew assembleRelease
 
-
-
-after_script:
+before_deploy:
  - du -a  |grep -i "*.apk"
  - du -a  /tmp |grep -i "*.apk"
  - sudo du -a / |grep -i "*.apk"
@@ -34,7 +32,7 @@ deploy:
   provider: releases
   api_key:
     secure: ${GH_TOKEN}
-  file: app/build/outputs/apk/app-release.apk
+  file: app/build/outputs/apk/app-release-unsigned.apk
   skip_cleanup: true
   on:
     tags: false
