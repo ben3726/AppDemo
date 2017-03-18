@@ -18,3 +18,6 @@ after_script:
  - du -a  /tmp |grep -i "*.apk"
  - sudo du -a / |grep -i "*.apk"
  - du -a
+branches:
+  only:
+    - master
