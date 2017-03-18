@@ -1,4 +1,13 @@
 language: android
+
+jdk:
+  - oraclejdk8
+
+notifications:
+  email: false
+
+sudo: false
+
 android:
   components:
     - tools
@@ -8,16 +17,24 @@ android:
     - extra-android-support
 
 before_install:
-  - chmod +x gradlew
+ - chmod +x gradlew
 
 script:
   - ./gradlew assembleRelease
+
+
 
 after_script:
  - du -a  |grep -i "*.apk"
  - du -a  /tmp |grep -i "*.apk"
  - sudo du -a / |grep -i "*.apk"
  - du -a
-branches:
-  only:
-    - master
+
+deploy:
+  provider: releases
+  api_key:
+    secure: ${GH_TOKEN}
+  file: app/build/outputs/apk/app-release.apk
+  skip_cleanup: true
+  on:
+    tags: false
