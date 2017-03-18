@@ -22,12 +22,6 @@ before_install:
 script:
   - ./gradlew assembleRelease
 
-after_success:
- - du -a  |grep -i "*.apk"
- - du -a  /tmp |grep -i "*.apk"
- - sudo du -a / |grep -i "*.apk"
- - du -a
-
 deploy:
   provider: releases
   api_key:
